@@ -70,67 +70,67 @@ export function Home() {
 			url: "files/videogame/songs/zelda_title.mp3"
 		},
 		{
-			id: 11,
+			id: 12,
 			category: "game",
 			name: "Sonic Brain Zone",
 			url: "files/videogame/songs/sonic_brain-zone.mp3"
 		},
 		{
-			id: 11,
+			id: 13,
 			category: "game",
 			name: "Zelda Link To Past",
 			url: "files/videogame/songs/zelda_link-to-past.mp3"
 		},
 		{
-			id: 12,
+			id: 14,
 			category: "game",
 			name: "Dong KinKong Main",
 			url: "files/other/songs/dkng-main.mp3"
 		},
 		{
-			id: 13,
+			id: 15,
 			category: "game",
 			name: "Dong KinKong Other",
 			url: "files/other/songs/dkng-other.mp3"
 		},
 		{
-			id: 14,
+			id: 16,
 			category: "game",
 			name: "mega-man",
 			url: "files/other/songs/mega-man.mp3"
 		},
 		{
-			id: 15,
+			id: 17,
 			game: "cartoon",
 			name: "Flintstones",
 			url: "files/cartoons/songs/flintstones.mp3"
 		},
 		{
-			id: 16,
+			id: 18,
 			game: "cartoon",
 			name: "power-rangers",
 			url: "files/cartoons/songs/power-rangers.mp3"
 		},
 		{
-			id: 17,
+			id: 19,
 			game: "cartoon",
 			name: "simpsons",
 			url: "files/cartoons/songs/simpsons.mp3"
 		},
 		{
-			id: 18,
+			id: 20,
 			game: "cartoon",
 			name: "south-park",
 			url: "files/cartoons/songs/south-park.mp3"
 		},
 		{
-			id: 19,
+			id: 21,
 			game: "cartoon",
 			name: "thundercats",
 			url: "files/cartoons/songs/thundercats.mp3"
 		},
 		{
-			id: 20,
+			id: 22,
 			game: "cartoon",
 			name: "x-men",
 			url: "files/cartoons/songs/x-men.mp3"
@@ -152,6 +152,13 @@ export function Home() {
 			/* entonces dale a pausa */
 			audio.current.pause();
 		}
+	};
+
+	const [ActivadoONO, setActivadoONO] = useState(false);
+
+	const cambiarEstado = () => {
+		let check = document.querySelector("#cbox1").checked;
+		setActivadoONO(check);
 	};
 
 	/* Al hacer click */
@@ -336,6 +343,14 @@ export function Home() {
 		/* comprobamos el id de la cancion y le aumentamos uno */
 	};
 
+	const sumarVol = () => {
+		let volumenOriginal = document.querySelector("#audio");
+		volumenOriginal.volume += 0.2;
+	};
+	const restarVol = () => {
+		let volumenOriginal = document.querySelector("#audio");
+		volumenOriginal.volume -= 0.2;
+	};
 	return (
 		<div className="container">
 			<div className="row justify-content-center">
@@ -365,18 +380,28 @@ export function Home() {
 					<div className="row justify-content-center text-center controlesbtns border border-secondary">
 						<div className="col-8 mt-3">
 							<audio
+								id="audio"
 								ref={audio}
 								src={cancionRepo}
 								controls
 								autoPlay
+								loop={ActivadoONO}
+								/* Antes verificamos con una condicional si
+                                 el chek esta desconectado sino volvemos a repro */
+								onEnded={siguienteCancion}
 							/>
 							{/* <input type="range" /> */}
 						</div>
-						<div className="col-8">
-							<p>{idescuchando + 1}</p>
+						<div className="col-12">
+							<p className="h4 text-white">
+								{idescuchando + 1} -
+								{" " + songList[idescuchando].name}
+							</p>
 						</div>
 						{/* botones atras play siguiente */}
-						<div className="col-8 mb-3">
+
+						<div className="col-3"></div>
+						<div className="col-6 mb-3">
 							<button
 								onClick={antesCancion}
 								className="rounded-circle px-2 py-1 bg-dark text-white">
@@ -391,6 +416,25 @@ export function Home() {
 								onClick={siguienteCancion}
 								className="rounded-circle px-2 py-1 bg-dark text-white ">
 								<i className="fas fa-forward"></i>
+							</button>
+						</div>
+						<div className="col-3 text-center">
+							<input
+								type="checkbox"
+								id="cbox1"
+								value="first_checkbox"
+								onClick={cambiarEstado}
+							/>{" "}
+							Repetir
+							<button
+								onClick={sumarVol}
+								className="rounded-circle px-2 py-1 bg-dark text-white ml-4 mr-2 ">
+								<i className="fas fa-volume-up"></i>
+							</button>
+							<button
+								onClick={restarVol}
+								className="rounded-circle px-2 py-1 bg-dark text-white ">
+								<i className="fas fa-volume-down"></i>
 							</button>
 						</div>
 					</div>

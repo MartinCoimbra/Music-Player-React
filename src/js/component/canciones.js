@@ -9,7 +9,7 @@ export function Cancion(props) {
 		<div
 			onClick={() => {
 				props.cambiarCancion(props.url);
-				props.setIdescuchando(props.id);
+				props.setIdescuchando(props.id - 1);
 			}}
 			className="canciones text-white">
 			<div className=" d-flex p-3 bg-dark my-2">
