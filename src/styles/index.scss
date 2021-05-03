@@ -11,3 +11,10 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+header, body{
+    background: #000000;
+}
+.scrollMusic{
+    height: 400px;
+    overflow-y: scroll;
+}
