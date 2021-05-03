@@ -137,7 +137,9 @@ export function Home() {
 		}
 	]);
 
-	const [cancionRepo, setCancionRepo] = useState("");
+	const [cancionRepo, setCancionRepo] = useState(
+		"https://assets.breatheco.de/apis/sound/files/mario/songs/castle.mp3"
+	);
 
 	let audio = useRef();
 	const pauseYplay = () => {
@@ -152,98 +154,96 @@ export function Home() {
 		}
 	};
 
+	/* Al hacer click */
 	const cambiarCancion = cancionUrl => {
 		let prefijo = "https://assets.breatheco.de/apis/sound/" + cancionUrl;
 		setCancionRepo(prefijo);
 	};
 
-	const [idescuchando, setIdescuchando] = useState(1);
+	/* Escuchando por defecto posicion */
+	const [idescuchando, setIdescuchando] = useState(0);
 
 	/* siguienteCancion */
 	const siguienteCancion = () => {
-		/* la sonlist[i].id = idescuchando  */
 		let cancionsiguiento = "https://assets.breatheco.de/apis/sound/";
-
 		switch (idescuchando) {
-			case 1:
-				/* si el valor es 1 reproduce la siguiente aumentando el pos array */
-				/* recuerda que las posiciones empiezan en cero */
+			case 0:
 				cancionsiguiento += songList[1].url;
 				console.log("Posicion :1");
 				break;
-			case 2:
+			case 1:
 				cancionsiguiento += songList[2].url;
 				console.log("Posicion :2");
 				break;
-			case 3:
+			case 2:
 				cancionsiguiento += songList[3].url;
 				console.log("Posicion :3");
 				break;
-			case 4:
+			case 3:
 				cancionsiguiento += songList[4].url;
 				console.log("Posicion :4");
 				break;
-			case 5:
+			case 4:
 				cancionsiguiento += songList[5].url;
 				console.log("Posicion :5");
 				break;
-			case 6:
+			case 5:
 				cancionsiguiento += songList[6].url;
 				console.log("Posicion :6");
 				break;
-			case 7:
+			case 6:
 				cancionsiguiento += songList[7].url;
 				console.log("Posicion :7");
 				break;
-			case 8:
+			case 7:
 				cancionsiguiento += songList[8].url;
 				console.log("Posicion :8");
 				break;
-			case 9:
+			case 8:
 				cancionsiguiento += songList[9].url;
 				console.log("Posicion :9");
 				break;
-			case 10:
+			case 9:
 				cancionsiguiento += songList[10].url;
 				console.log("Posicion :10");
 				break;
-			case 11:
+			case 10:
 				cancionsiguiento += songList[11].url;
 				console.log("Posicion :11");
 				break;
-			case 12:
+			case 11:
 				cancionsiguiento += songList[12].url;
 				console.log("Posicion :12");
 				break;
-			case 13:
+			case 12:
 				cancionsiguiento += songList[13].url;
 				console.log("Posicion :13");
 				break;
-			case 14:
+			case 13:
 				cancionsiguiento += songList[14].url;
 				console.log("Posicion :14");
 				break;
-			case 15:
+			case 14:
 				cancionsiguiento += songList[15].url;
 				console.log("Posicion :15");
 				break;
-			case 16:
+			case 15:
 				cancionsiguiento += songList[16].url;
 				console.log("Posicion :16");
 				break;
-			case 17:
+			case 16:
 				cancionsiguiento += songList[17].url;
 				console.log("Posicion :17");
 				break;
-			case 18:
+			case 17:
 				cancionsiguiento += songList[18].url;
 				console.log("Posicion :18");
 				break;
-			case 19:
+			case 18:
 				cancionsiguiento += songList[19].url;
 				console.log("Posicion :19");
 				break;
-			case 20:
+			case 19:
 				cancionsiguiento += songList[20].url;
 				console.log("Posicion :20");
 				break;
@@ -254,9 +254,88 @@ export function Home() {
 		console.log(idescuchando);
 		cancionsiguiento = "";
 		setIdescuchando(idescuchando + 1);
+	};
+
+	const antesCancion = () => {
+		let cancionsiguiento = "https://assets.breatheco.de/apis/sound/";
+		if (idescuchando - 1 == -1) {
+			console.log("No podemos bajar de cancion");
+		} else {
+			switch (idescuchando) {
+				case 1:
+					cancionsiguiento += songList[0].url;
+					console.log("Ultima, ya no podrias bajar mas");
+
+					break;
+				case 2:
+					cancionsiguiento += songList[1].url;
+					break;
+				case 3:
+					cancionsiguiento += songList[2].url;
+					break;
+				case 4:
+					cancionsiguiento += songList[3].url;
+					break;
+				case 5:
+					cancionsiguiento += songList[4].url;
+					break;
+				case 6:
+					cancionsiguiento += songList[5].url;
+					break;
+				case 7:
+					cancionsiguiento += songList[6].url;
+					break;
+				case 8:
+					cancionsiguiento += songList[7].url;
+					break;
+				case 9:
+					cancionsiguiento += songList[8].url;
+					break;
+				case 10:
+					cancionsiguiento += songList[9].url;
+					break;
+				case 11:
+					cancionsiguiento += songList[10].url;
+					break;
+				case 12:
+					cancionsiguiento += songList[11].url;
+					break;
+				case 13:
+					cancionsiguiento += songList[12].url;
+					break;
+				case 14:
+					cancionsiguiento += songList[13].url;
+					break;
+				case 15:
+					cancionsiguiento += songList[14].url;
+					break;
+				case 16:
+					cancionsiguiento += songList[15].url;
+					break;
+				case 17:
+					cancionsiguiento += songList[16].url;
+					break;
+				case 18:
+					cancionsiguiento += songList[17].url;
+					break;
+				case 19:
+					cancionsiguiento += songList[18].url;
+					break;
+				case 20:
+					cancionsiguiento += songList[19].url;
+					break;
+				default:
+					break;
+			}
+
+			setIdescuchando(idescuchando - 1);
+			setCancionRepo(cancionsiguiento);
+			cancionsiguiento = "";
+		}
 		/* aqui la logica para cambiar la cancion */
 		/* comprobamos el id de la cancion y le aumentamos uno */
 	};
+
 	return (
 		<div className="container">
 			<div className="row justify-content-center">
@@ -293,9 +372,14 @@ export function Home() {
 							/>
 							{/* <input type="range" /> */}
 						</div>
+						<div className="col-8">
+							<p>{idescuchando + 1}</p>
+						</div>
 						{/* botones atras play siguiente */}
 						<div className="col-8 mb-3">
-							<button className="rounded-circle px-2 py-1 bg-dark text-white">
+							<button
+								onClick={antesCancion}
+								className="rounded-circle px-2 py-1 bg-dark text-white">
 								<i className="fas fa-backward"></i>
 							</button>
 							<button
