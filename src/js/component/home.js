@@ -157,6 +157,106 @@ export function Home() {
 		setCancionRepo(prefijo);
 	};
 
+	const [idescuchando, setIdescuchando] = useState(1);
+
+	/* siguienteCancion */
+	const siguienteCancion = () => {
+		/* la sonlist[i].id = idescuchando  */
+		let cancionsiguiento = "https://assets.breatheco.de/apis/sound/";
+
+		switch (idescuchando) {
+			case 1:
+				/* si el valor es 1 reproduce la siguiente aumentando el pos array */
+				/* recuerda que las posiciones empiezan en cero */
+				cancionsiguiento += songList[1].url;
+				console.log("Posicion :1");
+				break;
+			case 2:
+				cancionsiguiento += songList[2].url;
+				console.log("Posicion :2");
+				break;
+			case 3:
+				cancionsiguiento += songList[3].url;
+				console.log("Posicion :3");
+				break;
+			case 4:
+				cancionsiguiento += songList[4].url;
+				console.log("Posicion :4");
+				break;
+			case 5:
+				cancionsiguiento += songList[5].url;
+				console.log("Posicion :5");
+				break;
+			case 6:
+				cancionsiguiento += songList[6].url;
+				console.log("Posicion :6");
+				break;
+			case 7:
+				cancionsiguiento += songList[7].url;
+				console.log("Posicion :7");
+				break;
+			case 8:
+				cancionsiguiento += songList[8].url;
+				console.log("Posicion :8");
+				break;
+			case 9:
+				cancionsiguiento += songList[9].url;
+				console.log("Posicion :9");
+				break;
+			case 10:
+				cancionsiguiento += songList[10].url;
+				console.log("Posicion :10");
+				break;
+			case 11:
+				cancionsiguiento += songList[11].url;
+				console.log("Posicion :11");
+				break;
+			case 12:
+				cancionsiguiento += songList[12].url;
+				console.log("Posicion :12");
+				break;
+			case 13:
+				cancionsiguiento += songList[13].url;
+				console.log("Posicion :13");
+				break;
+			case 14:
+				cancionsiguiento += songList[14].url;
+				console.log("Posicion :14");
+				break;
+			case 15:
+				cancionsiguiento += songList[15].url;
+				console.log("Posicion :15");
+				break;
+			case 16:
+				cancionsiguiento += songList[16].url;
+				console.log("Posicion :16");
+				break;
+			case 17:
+				cancionsiguiento += songList[17].url;
+				console.log("Posicion :17");
+				break;
+			case 18:
+				cancionsiguiento += songList[18].url;
+				console.log("Posicion :18");
+				break;
+			case 19:
+				cancionsiguiento += songList[19].url;
+				console.log("Posicion :19");
+				break;
+			case 20:
+				cancionsiguiento += songList[20].url;
+				console.log("Posicion :20");
+				break;
+			default:
+				break;
+		}
+		setCancionRepo(cancionsiguiento);
+		console.log(idescuchando);
+		cancionsiguiento = "";
+		setIdescuchando(idescuchando + 1);
+		/* aqui la logica para cambiar la cancion */
+		/* comprobamos el id de la cancion y le aumentamos uno */
+	};
 	return (
 		<div className="container">
 			<div className="row justify-content-center">
@@ -177,6 +277,7 @@ export function Home() {
 									name={element.name}
 									url={element.url}
 									cambiarCancion={cambiarCancion}
+									setIdescuchando={setIdescuchando}
 								/>
 							);
 						})}
@@ -184,7 +285,12 @@ export function Home() {
 
 					<div className="row justify-content-center text-center controlesbtns border border-secondary">
 						<div className="col-8 mt-3">
-							<audio ref={audio} src={cancionRepo} controls />
+							<audio
+								ref={audio}
+								src={cancionRepo}
+								controls
+								autoPlay
+							/>
 							{/* <input type="range" /> */}
 						</div>
 						{/* botones atras play siguiente */}
@@ -197,7 +303,9 @@ export function Home() {
 								className="rounded-circle px-2 py-1  mx-3">
 								<i className="fas fa-play"></i>
 							</button>
-							<button className="rounded-circle px-2 py-1 bg-dark text-white ">
+							<button
+								onClick={siguienteCancion}
+								className="rounded-circle px-2 py-1 bg-dark text-white ">
 								<i className="fas fa-forward"></i>
 							</button>
 						</div>
