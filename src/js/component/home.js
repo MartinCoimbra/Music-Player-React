@@ -137,20 +137,38 @@ export function Home() {
 		}
 	]);
 
+	const [cancionRepo, setCancionRepo] = useState("");
+
+	let audio = useRef();
+	const pauseYplay = () => {
+		/* si el video se encuentra pausado */
+		if (audio.current.paused) {
+			/* entonces dale play */
+			audio.current.play();
+			/* si el video no esta en pausa */
+		} else if (!audio.current.paused) {
+			/* entonces dale a pausa */
+			audio.current.pause();
+		}
+	};
+
+	const cambiarCancion = cancionUrl => {
+		let prefijo = "https://assets.breatheco.de/apis/sound/" + cancionUrl;
+		setCancionRepo(prefijo);
+	};
+
 	return (
 		<div className="container">
 			<div className="row justify-content-center">
 				<div className="col-9 border border-secondary">
-					<header className="border border-secondary">
+					<header className="border-bottom border-secondary px-2">
 						<img
 							width="150px"
 							src="https://1000marcas.net/wp-content/uploads/2019/12/Spotify-logotipo.jpg"
 						/>
 					</header>
-					{/* primero lo hacemos sencillito con 1 y luego lo componetisamos a ver si sale :D */}
-					{/* aqui van los names de las canciones */}
-
 					<div className="scrollMusic">
+						{/* Canciones */}
 						{songList.map((element, i) => {
 							return (
 								<Cancion
@@ -158,6 +176,7 @@ export function Home() {
 									id={element.id}
 									name={element.name}
 									url={element.url}
+									cambiarCancion={cambiarCancion}
 								/>
 							);
 						})}
@@ -165,17 +184,17 @@ export function Home() {
 
 					<div className="row justify-content-center text-center controlesbtns border border-secondary">
 						<div className="col-8 mt-3">
-							<audio
-								src="https://assets.breatheco.de/apis/sound/files/mario/songs/castle.mp3"
-								controls
-							/>
+							<audio ref={audio} src={cancionRepo} controls />
 							{/* <input type="range" /> */}
 						</div>
+						{/* botones atras play siguiente */}
 						<div className="col-8 mb-3">
 							<button className="rounded-circle px-2 py-1 bg-dark text-white">
 								<i className="fas fa-backward"></i>
 							</button>
-							<button className="rounded-circle px-2 py-1  mx-3">
+							<button
+								onClick={pauseYplay}
+								className="rounded-circle px-2 py-1  mx-3">
 								<i className="fas fa-play"></i>
 							</button>
 							<button className="rounded-circle px-2 py-1 bg-dark text-white ">

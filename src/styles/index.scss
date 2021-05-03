@@ -18,3 +18,10 @@ header, body{
     height: 400px;
     overflow-y: scroll;
 }
+
+.canciones{
+    cursor: pointer;
+}
+.canciones:hover{
+    opacity: 0.8;
+}
