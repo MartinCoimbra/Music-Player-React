@@ -179,10 +179,12 @@ export function Home() {
 
 	/* Escuchando por defecto posicion */
 	const [idescuchando, setIdescuchando] = useState(0);
+	const [aleatorioCan, setAleatorioCan] = useState(false);
 
 	/* siguienteCancion */
 	const siguienteCancion = () => {
 		let cancionsiguiento = "https://assets.breatheco.de/apis/sound/";
+
 		switch (idescuchando) {
 			case 0:
 				cancionsiguiento += songList[1].url;
@@ -434,59 +436,73 @@ export function Home() {
 									url={element.url}
 									cambiarCancion={cambiarCancion}
 									setIdescuchando={setIdescuchando}
+									setCambioIPlay={setCambioIPlay}
+									setCambioIPause={setCambioIPause}
 								/>
 							);
 						})}
 					</div>
 
 					<div className="row justify-content-center text-center controlesbtns border border-secondary">
-						<div className="col-8 mt-3">
-							<audio
-								id="audio"
-								ref={audio}
-								src={cancionRepo}
-								autoPlay
-								loop={ActivadoONO}
-								/* Antes verificamos con una condicional si
+						<div className="col-12 mt-3">
+							<div className="row justify-content-center">
+								<div className="col-8">
+									<audio
+										id="audio"
+										ref={audio}
+										src={cancionRepo}
+										autoPlay
+										loop={ActivadoONO}
+										/* Antes verificamos con una condicional si
                                  el chek esta desconectado sino volvemos a repro */
-								onEnded={siguienteCancion}
-							/>
-							{/* <input
+										onEnded={siguienteCancion}
+									/>
+									{/* <input
 								type="range"
 								max={duracionA}
 								value={tiempoTranscurrdioSlider}
 							/> */}
-							<div className="progress">
-								<div
-									className="progress-bar bg-success"
-									role="progressbar"
-									style={{
-										width:
-											Math.floor(
-												tiempoTranscurrdioSlider * 100
-											) /
-												duracionA +
-											"%"
-									}}
-									aria-valuenow={
-										tiempoTranscurrdioSlider + "%"
-									}
-									aria-valuemin="0"
-									aria-valuemax={
-										(duracionA * 100) / duracionA
-									}></div>
+									<div className="progress mt-2">
+										<div
+											className="progress-bar bg-success"
+											role="progressbar"
+											style={{
+												width:
+													Math.floor(
+														tiempoTranscurrdioSlider *
+															100
+													) /
+														duracionA +
+													"%"
+											}}
+											aria-valuenow={
+												tiempoTranscurrdioSlider + "%"
+											}
+											aria-valuemin="0"
+											aria-valuemax={
+												(duracionA * 100) / duracionA
+											}></div>
+									</div>
+								</div>
+								<div className="col-2">
+									<p className="text-success h4">
+										{tiempoTranscurrdio} -{" "}
+										{duracionDelAudio}
+									</p>
+								</div>
 							</div>
 						</div>
 						<div className="col-12">
 							<p className="h4 text-white">
 								{idescuchando + 1} -
-								{" " + songList[idescuchando].name} -
-								{tiempoTranscurrdio}-{duracionDelAudio}
+								{" " + songList[idescuchando].name}
 							</p>
 						</div>
+
+						{/* Aleatorio */}
+						<div className="col-3"></div>
 						{/* botones atras play siguiente */}
 
-						<div className="col-3"></div>
 						<div className="col-6 mb-3">
 							<button
 								onClick={antesCancion}

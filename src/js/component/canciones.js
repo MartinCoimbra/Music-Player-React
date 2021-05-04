@@ -2,12 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export function Cancion(props) {
-	/* al hacer onclick modifica el srf del audio y colocale cual lickeo */
-
-	/*"https://assets.breatheco.de/apis/sound/files/mario/songs/castle.mp3"*/
 	return (
 		<div
 			onClick={() => {
+				props.setCambioIPlay("d-none");
+				props.setCambioIPause("d-block");
 				props.cambiarCancion(props.url);
 				props.setIdescuchando(props.id - 1);
 			}}
@@ -24,5 +23,7 @@ Cancion.propTypes = {
 	name: PropTypes.string,
 	url: PropTypes.string,
 	setIdescuchando: PropTypes.func,
-	cambiarCancion: PropTypes.func
+	cambiarCancion: PropTypes.func,
+	setCambioIPlay: PropTypes.func,
+	setCambioIPause: PropTypes.func
 };
