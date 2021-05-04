@@ -62,96 +62,12 @@ export function Home() {
 	/* siguienteCancion */
 	const siguienteCancion = () => {
 		let cancionsiguiento = "https://assets.breatheco.de/apis/sound/";
-
-		switch (idescuchando) {
-			case 0:
-				cancionsiguiento += songList[1].url;
-				console.log("Posicion :1");
-				break;
-			case 1:
-				cancionsiguiento += songList[2].url;
-				console.log("Posicion :2");
-				break;
-			case 2:
-				cancionsiguiento += songList[3].url;
-				console.log("Posicion :3");
-				break;
-			case 3:
-				cancionsiguiento += songList[4].url;
-				console.log("Posicion :4");
-				break;
-			case 4:
-				cancionsiguiento += songList[5].url;
-				console.log("Posicion :5");
-				break;
-			case 5:
-				cancionsiguiento += songList[6].url;
-				console.log("Posicion :6");
-				break;
-			case 6:
-				cancionsiguiento += songList[7].url;
-				console.log("Posicion :7");
-				break;
-			case 7:
-				cancionsiguiento += songList[8].url;
-				console.log("Posicion :8");
-				break;
-			case 8:
-				cancionsiguiento += songList[9].url;
-				console.log("Posicion :9");
-				break;
-			case 9:
-				cancionsiguiento += songList[10].url;
-				console.log("Posicion :10");
-				break;
-			case 10:
-				cancionsiguiento += songList[11].url;
-				console.log("Posicion :11");
-				break;
-			case 11:
-				cancionsiguiento += songList[12].url;
-				console.log("Posicion :12");
-				break;
-			case 12:
-				cancionsiguiento += songList[13].url;
-				console.log("Posicion :13");
-				break;
-			case 13:
-				cancionsiguiento += songList[14].url;
-				console.log("Posicion :14");
-				break;
-			case 14:
-				cancionsiguiento += songList[15].url;
-				console.log("Posicion :15");
-				break;
-			case 15:
-				cancionsiguiento += songList[16].url;
-				console.log("Posicion :16");
-				break;
-			case 16:
-				cancionsiguiento += songList[17].url;
-				console.log("Posicion :17");
-				break;
-			case 17:
-				cancionsiguiento += songList[18].url;
-				console.log("Posicion :18");
-				break;
-			case 18:
-				cancionsiguiento += songList[19].url;
-				console.log("Posicion :19");
-				break;
-			case 19:
-				cancionsiguiento += songList[20].url;
-				console.log("Posicion :20");
-				break;
-			default:
-				break;
-		}
-		if (idescuchando == 21) {
-			console.log(idescuchando + "ALTO SOY YO");
-		} else {
+		if (idescuchando >= 0) {
+			cancionsiguiento += songList[idescuchando + 1].url;
 			setCancionRepo(cancionsiguiento);
 			setIdescuchando(idescuchando + 1);
+		} else if (idescuchando === 22) {
+			console.log(idescuchando + "ALTO SOY YO");
 		}
 		cancionsiguiento = "";
 	};
@@ -160,78 +76,15 @@ export function Home() {
 		let cancionsiguiento = "https://assets.breatheco.de/apis/sound/";
 		if (idescuchando - 1 == -1) {
 			console.log("No podemos bajar de cancion");
+		} else if (idescuchando == 0) {
+			cancionsiguiento += songList[0].url;
+			console.log("Ultima, ya no podrias bajar mas");
 		} else {
-			switch (idescuchando) {
-				case 1:
-					cancionsiguiento += songList[0].url;
-					console.log("Ultima, ya no podrias bajar mas");
-
-					break;
-				case 2:
-					cancionsiguiento += songList[1].url;
-					break;
-				case 3:
-					cancionsiguiento += songList[2].url;
-					break;
-				case 4:
-					cancionsiguiento += songList[3].url;
-					break;
-				case 5:
-					cancionsiguiento += songList[4].url;
-					break;
-				case 6:
-					cancionsiguiento += songList[5].url;
-					break;
-				case 7:
-					cancionsiguiento += songList[6].url;
-					break;
-				case 8:
-					cancionsiguiento += songList[7].url;
-					break;
-				case 9:
-					cancionsiguiento += songList[8].url;
-					break;
-				case 10:
-					cancionsiguiento += songList[9].url;
-					break;
-				case 11:
-					cancionsiguiento += songList[10].url;
-					break;
-				case 12:
-					cancionsiguiento += songList[11].url;
-					break;
-				case 13:
-					cancionsiguiento += songList[12].url;
-					break;
-				case 14:
-					cancionsiguiento += songList[13].url;
-					break;
-				case 15:
-					cancionsiguiento += songList[14].url;
-					break;
-				case 16:
-					cancionsiguiento += songList[15].url;
-					break;
-				case 17:
-					cancionsiguiento += songList[16].url;
-					break;
-				case 18:
-					cancionsiguiento += songList[17].url;
-					break;
-				case 19:
-					cancionsiguiento += songList[18].url;
-					break;
-				case 20:
-					cancionsiguiento += songList[19].url;
-					break;
-				default:
-					break;
-			}
-
+			cancionsiguiento += songList[idescuchando - 1].url;
 			setIdescuchando(idescuchando - 1);
-			setCancionRepo(cancionsiguiento);
-			cancionsiguiento = "";
 		}
+		setCancionRepo(cancionsiguiento);
+		cancionsiguiento = "";
 	};
 
 	/* volumen */
@@ -266,9 +119,11 @@ export function Home() {
 			);
 		};
 	};
+
 	useEffect(() => {
 		fetchT();
-	}, [1]);
+	}, []);
+
 	useEffect(() => {
 		verDuracion();
 		maxDuracionInSeg();
@@ -279,13 +134,12 @@ export function Home() {
 	const [tiempoTranscurrdioSlider, setTiempoTranscurrdioSlider] = useState(0);
 	const [tiempoTranscurrdio, setTiempoTranscurrdio] = useState(0);
 	const transcurrir = () => {
-		var transsC = document.querySelector("#audio");
+		let transsC = audio.current;
 		/* si llegan a ser mas de 60 seg empieza a transformarlo */
-
 		let minute = Math.floor(transsC.currentTime / 60);
 		minute = minute < 10 ? "0" + minute : minute;
-		var second = transsC.currentTime % 60;
-		var second2 = transsC.currentTime;
+		let second = transsC.currentTime % 60;
+		let second2 = transsC.currentTime;
 		setTiempoTranscurrdioSlider(second2);
 		second = second < 10 ? "0" + second : second;
 		setTiempoTranscurrdio(Math.floor(minute) + ":" + Math.floor(second));
