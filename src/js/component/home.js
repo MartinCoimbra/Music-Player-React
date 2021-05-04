@@ -137,11 +137,13 @@ export function Home() {
 		}
 	]);
 
+	/* cancion por defecto */
 	const [cancionRepo, setCancionRepo] = useState(
 		"https://assets.breatheco.de/apis/sound/files/mario/songs/castle.mp3"
 	);
 
 	let audio = useRef();
+	/* Quitar o poner pause */
 	const pauseYplay = () => {
 		/* si el video se encuentra pausado */
 		if (audio.current.paused) {
@@ -154,8 +156,8 @@ export function Home() {
 		}
 	};
 
+	/* Repetir cancion o no loop y check */
 	const [ActivadoONO, setActivadoONO] = useState(false);
-
 	const cambiarEstado = () => {
 		let check = document.querySelector("#cbox1").checked;
 		setActivadoONO(check);
@@ -257,10 +259,13 @@ export function Home() {
 			default:
 				break;
 		}
-		setCancionRepo(cancionsiguiento);
-		console.log(idescuchando);
+		if (idescuchando == 21) {
+			console.log(idescuchando + "ALTO SOY YO");
+		} else {
+			setCancionRepo(cancionsiguiento);
+			setIdescuchando(idescuchando + 1);
+		}
 		cancionsiguiento = "";
-		setIdescuchando(idescuchando + 1);
 	};
 
 	const antesCancion = () => {
@@ -339,10 +344,9 @@ export function Home() {
 			setCancionRepo(cancionsiguiento);
 			cancionsiguiento = "";
 		}
-		/* aqui la logica para cambiar la cancion */
-		/* comprobamos el id de la cancion y le aumentamos uno */
 	};
 
+	/* volumen */
 	const sumarVol = () => {
 		let volumenOriginal = document.querySelector("#audio");
 		volumenOriginal.volume += 0.2;
@@ -351,6 +355,49 @@ export function Home() {
 		let volumenOriginal = document.querySelector("#audio");
 		volumenOriginal.volume -= 0.2;
 	};
+
+	/* duracion del audio */
+	const [duracionDelAudio, setDuracionDelAudio] = useState(0);
+	/* pintamos la duracion de cada video */
+	const verDuracion = () => {
+		var duracion = document.querySelector("#audio");
+		duracion.onloadeddata = function() {
+			let minute = Math.floor(duracion.duration / 60);
+			minute = minute < 10 ? "0" + minute : minute;
+			var second = duracion.duration % 60;
+			second = second < 10 ? "0" + second : second;
+			setDuracionDelAudio(
+				" " + Math.floor(minute) + ":" + Math.floor(second)
+			);
+		};
+	};
+	useEffect(() => {
+		verDuracion();
+	});
+
+	/* tiempo transcurdio */
+	const [tiempoTranscurrdio, setTiempoTranscurrdio] = useState(0);
+	const transcurrir = () => {
+		var transsC = document.querySelector("#audio");
+		/* si llegan a ser mas de 60 seg empieza a transformarlo */
+		if (Math.floor(transsC.currentTime) >= 60) {
+			let minute = Math.floor(transsC.currentTime / 60);
+			minute = minute < 10 ? "0" + minute : minute;
+			var second = transsC.currentTime % 60;
+			second = second < 10 ? "0" + second : second;
+			setTiempoTranscurrdio(
+				" " + Math.floor(minute) + ":" + Math.floor(second)
+			);
+		} else {
+			setTiempoTranscurrdio(Math.floor(transsC.currentTime));
+		}
+	};
+
+	/* para que vaya contando los segundos */
+	setInterval(() => {
+		transcurrir();
+	}, 1000);
+
 	return (
 		<div className="container">
 			<div className="row justify-content-center">
@@ -395,7 +442,8 @@ export function Home() {
 						<div className="col-12">
 							<p className="h4 text-white">
 								{idescuchando + 1} -
-								{" " + songList[idescuchando].name}
+								{" " + songList[idescuchando].name} -
+								{tiempoTranscurrdio}-{duracionDelAudio}
 							</p>
 						</div>
 						{/* botones atras play siguiente */}
