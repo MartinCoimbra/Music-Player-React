@@ -357,6 +357,13 @@ export function Home() {
 	};
 
 	/* duracion del audio */
+	const [duracionA, setDuracionA] = useState(0);
+
+	const maxDuracionInSeg = () => {
+		let tiempoinSeg = document.querySelector("#audio").duration;
+		setDuracionA(tiempoinSeg);
+	};
+
 	const [duracionDelAudio, setDuracionDelAudio] = useState(0);
 	/* pintamos la duracion de cada video */
 	const verDuracion = () => {
@@ -373,9 +380,11 @@ export function Home() {
 	};
 	useEffect(() => {
 		verDuracion();
+		maxDuracionInSeg();
 	});
 
 	/* tiempo transcurdio */
+
 	const [tiempoTranscurrdioSlider, setTiempoTranscurrdioSlider] = useState(0);
 	const [tiempoTranscurrdio, setTiempoTranscurrdio] = useState(0);
 	const transcurrir = () => {
@@ -386,11 +395,9 @@ export function Home() {
 		minute = minute < 10 ? "0" + minute : minute;
 		var second = transsC.currentTime % 60;
 		var second2 = transsC.currentTime;
-		setTiempoTranscurrdioSlider(second);
+		setTiempoTranscurrdioSlider(second2);
 		second = second < 10 ? "0" + second : second;
-		setTiempoTranscurrdio(
-			" " + Math.floor(minute) + ":" + Math.floor(second)
-		);
+		setTiempoTranscurrdio(Math.floor(minute) + ":" + Math.floor(second));
 	};
 
 	/* para que vaya contando los segundos */
@@ -439,8 +446,8 @@ export function Home() {
 							/>
 							<input
 								type="range"
+								max={duracionA}
 								value={tiempoTranscurrdioSlider}
-								max={duracionDelAudio}
 							/>
 						</div>
 						<div className="col-12">
