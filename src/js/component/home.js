@@ -437,18 +437,37 @@ export function Home() {
 								id="audio"
 								ref={audio}
 								src={cancionRepo}
-								controls
 								autoPlay
 								loop={ActivadoONO}
 								/* Antes verificamos con una condicional si
                                  el chek esta desconectado sino volvemos a repro */
 								onEnded={siguienteCancion}
 							/>
-							<input
+							{/* <input
 								type="range"
 								max={duracionA}
 								value={tiempoTranscurrdioSlider}
-							/>
+							/> */}
+							<div className="progress">
+								<div
+									className="progress-bar bg-success"
+									role="progressbar"
+									style={{
+										width:
+											Math.floor(
+												tiempoTranscurrdioSlider * 100
+											) /
+												duracionA +
+											"%"
+									}}
+									aria-valuenow={
+										tiempoTranscurrdioSlider + "%"
+									}
+									aria-valuemin="0"
+									aria-valuemax={
+										(duracionA * 100) / duracionA
+									}></div>
+							</div>
 						</div>
 						<div className="col-12">
 							<p className="h4 text-white">
