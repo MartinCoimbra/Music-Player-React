@@ -376,21 +376,21 @@ export function Home() {
 	});
 
 	/* tiempo transcurdio */
+	const [tiempoTranscurrdioSlider, setTiempoTranscurrdioSlider] = useState(0);
 	const [tiempoTranscurrdio, setTiempoTranscurrdio] = useState(0);
 	const transcurrir = () => {
 		var transsC = document.querySelector("#audio");
 		/* si llegan a ser mas de 60 seg empieza a transformarlo */
-		if (Math.floor(transsC.currentTime) >= 60) {
-			let minute = Math.floor(transsC.currentTime / 60);
-			minute = minute < 10 ? "0" + minute : minute;
-			var second = transsC.currentTime % 60;
-			second = second < 10 ? "0" + second : second;
-			setTiempoTranscurrdio(
-				" " + Math.floor(minute) + ":" + Math.floor(second)
-			);
-		} else {
-			setTiempoTranscurrdio(Math.floor(transsC.currentTime));
-		}
+
+		let minute = Math.floor(transsC.currentTime / 60);
+		minute = minute < 10 ? "0" + minute : minute;
+		var second = transsC.currentTime % 60;
+		var second2 = transsC.currentTime;
+		setTiempoTranscurrdioSlider(second);
+		second = second < 10 ? "0" + second : second;
+		setTiempoTranscurrdio(
+			" " + Math.floor(minute) + ":" + Math.floor(second)
+		);
 	};
 
 	/* para que vaya contando los segundos */
@@ -437,7 +437,11 @@ export function Home() {
                                  el chek esta desconectado sino volvemos a repro */
 								onEnded={siguienteCancion}
 							/>
-							{/* <input type="range" /> */}
+							<input
+								type="range"
+								value={tiempoTranscurrdioSlider}
+								max={duracionDelAudio}
+							/>
 						</div>
 						<div className="col-12">
 							<p className="h4 text-white">
