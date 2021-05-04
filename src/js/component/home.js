@@ -142,16 +142,24 @@ export function Home() {
 		"https://assets.breatheco.de/apis/sound/files/mario/songs/castle.mp3"
 	);
 
+	const [cambioIPlay, setCambioIPlay] = useState("d-none");
+	const [cambioIPause, setCambioIPause] = useState("d-block");
+
 	let audio = useRef();
 	/* Quitar o poner pause */
 	const pauseYplay = () => {
 		/* si el video se encuentra pausado */
 		if (audio.current.paused) {
 			/* entonces dale play */
+			setCambioIPlay("d-none");
+			setCambioIPause("d-block");
 			audio.current.play();
 			/* si el video no esta en pausa */
 		} else if (!audio.current.paused) {
 			/* entonces dale a pausa */
+			setCambioIPlay("d-block");
+			setCambioIPause("d-none");
+
 			audio.current.pause();
 		}
 	};
@@ -488,7 +496,11 @@ export function Home() {
 							<button
 								onClick={pauseYplay}
 								className="rounded-circle px-2 py-1  mx-3">
-								<i className="fas fa-play"></i>
+								<i className={"fas fa-play " + cambioIPlay}></i>
+								<i
+									className={
+										"fas fa-pause " + cambioIPause
+									}></i>
 							</button>
 							<button
 								onClick={siguienteCancion}
