@@ -151,7 +151,7 @@ export function Home() {
 	}, 1000);
 
 	return (
-		<div className="container">
+		<div className="container mt-3">
 			<div className="row justify-content-center">
 				<div className="col-9 border border-secondary">
 					<header className="border-bottom border-secondary px-2">
